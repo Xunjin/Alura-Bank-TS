@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "tsc"
+    "compile": "tsc",
+    "start": "tsc -w"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/Xunjin/Alura-Bank-TS#readme",
   "devDependencies": {
+    "@types/jquery": "^3.3.29",
     "typescript": "^3.3.3"
   }
 }
