@@ -10,10 +10,7 @@ class NegociacaoController {
     }
     adiciona(event) {
         event.preventDefault();
-        const negociacao = new Negociacao(new Date(this._inputData.val().replace(/-/g, ',')), // need to convert to as string because of the @Type/Jquery problem
-        parseInt(this._inputQuantidade.val()), // need to convert to as string because of the @Type/Jquery problem
-        parseFloat(this._inputValor.val()) // need to convert to as string because of the @Type/Jquery problem
-        );
+        const negociacao = new Negociacao(new Date(this._inputData.val().replace(/-/g, ',')), parseInt(this._inputQuantidade.val()), parseFloat(this._inputValor.val()));
         this._negociacoes.adiciona(negociacao);
         this._negociacoesView.update(this._negociacoes);
         this._mensagemView.update('Negociação adicionada com sucesso!');

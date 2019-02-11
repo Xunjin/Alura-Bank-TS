@@ -1,3 +1,5 @@
+// controller do cangaço <3
+
 class NegociacaoController {
 
   private _inputData: JQuery;
