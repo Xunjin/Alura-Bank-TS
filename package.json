@@ -1,0 +1,26 @@
+{
+  "name": "alura-bank-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xunjin/Alura-Bank-TS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xunjin/Alura-Bank-TS/issues"
+  },
+  "homepage": "https://github.com/Xunjin/Alura-Bank-TS#readme",
+  "devDependencies": {
+    "typescript": "^3.3.3"
+  }
+}
