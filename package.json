@@ -9,7 +9,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",
-    "start": "tsc -w"
+    "watch": "tsc -w",
+    "server": "lite-server --baseDir=app",
+    "start": "concurrently \"npm run watch\" \"npm run server\""
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,8 @@
   "homepage": "https://github.com/Xunjin/Alura-Bank-TS#readme",
   "devDependencies": {
     "@types/jquery": "^3.3.29",
+    "concurrently": "^4.1.0",
+    "lite-server": "^2.4.0",
     "typescript": "^3.3.3"
   }
 }
