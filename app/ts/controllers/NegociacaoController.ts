@@ -1,10 +1,11 @@
 // controller do cangaço <3
 
-import {NegociacoesView, MensagemView} from '../views/index';
-import {Negociacoes, Negociacao} from '../models/index';
-import {domInject, throttle} from '../helpers/decorators/index';
-import {NegociacaoParcial} from '../models/NegociacaoParcial';
-import {NegociacaoService} from '../services/index';
+import { NegociacoesView, MensagemView } from '../views/index';
+import { Negociacoes, Negociacao } from '../models/index';
+import { domInject, throttle } from '../helpers/decorators/index';
+import { NegociacaoParcial } from '../models/NegociacaoParcial';
+import { NegociacaoService } from '../services/index';
+import {imprime} from '../helpers/Utils';
 
 export class NegociacaoController {
 
@@ -43,7 +44,11 @@ export class NegociacaoController {
       parseFloat(this._inputValor.val() as string) // need to convert to as string because of the @Type/Jquery problem
     );
 
+    imprime(negociacao, this._negociacoes);
+
     this._negociacoes.adiciona(negociacao);
+
+    this._negociacoes.paraTexto();
 
     this._negociacoesView.update(this._negociacoes);
     this._mensagemView.update('Negociação adicionada com sucesso!');
@@ -55,23 +60,31 @@ export class NegociacaoController {
   }
 
   @throttle()
-  importaDados() {
-
-    function isOK(res: Response) {
-
-      if(res.ok) {
-        return res;
-      }else {
-        throw new Error(res.statusText);
+  async importaDados() {
+      try {
+        
+        const negociacoesParaImportar = await this._service
+          .obterNegociacoes(res => {
+            if(res.ok) {
+              return res;
+            }else {
+              throw new Error(res.statusText);
+            }
+          });
+    
+          const negociacoesJaImportadas = this._negociacoes.paraArray();
+    
+          negociacoesParaImportar
+            .filter((negociacao: Negociacao | any)=> 
+              !negociacoesJaImportadas.some(jaImportada =>
+                  negociacao.ehIgual(jaImportada)))
+          .forEach((negociacao: Negociacao) => 
+            this._negociacoes.adiciona(negociacao));
+            this._negociacoesView.update(this._negociacoes);
+      } catch(err) {
+        this._mensagemView.update(err.message);
       }
-    }
-      
-    this._service.obterNegociacoes(isOK)
-      .then((negociacoes: Negociacao[])  => { 
-        negociacoes.forEach(negociacao => 
-          this._negociacoes.adiciona(negociacao));
-          this._negociacoesView.update(this._negociacoes);
-        });
+          
   }
 }
 
